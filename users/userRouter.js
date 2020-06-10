@@ -28,8 +28,14 @@ router.post(
   }
 );
 
-router.get("/", (req, res) => {
+router.get("/", (req, res, next) => {
   // do your magic!
+  users
+    .get()
+    .then((user) => {
+      res.status(200).json(user);
+    })
+    .catch((err) => next(err));
 });
 
 router.get("/:id", (req, res) => {
