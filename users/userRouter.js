@@ -53,8 +53,16 @@ router.get("/:id/posts", validateUserId(), (req, res, next) => {
     .catch(next);
 });
 
-router.delete("/:id", (req, res) => {
+router.delete("/:id", validateUserId(), (req, res, next) => {
   // do your magic!
+  users
+    .remove(req.params.id)
+    .then(() => {
+      res.status(200).json({
+        message: "The user has been nuked",
+      });
+    })
+    .catch(next);
 });
 
 router.put("/:id", (req, res) => {
