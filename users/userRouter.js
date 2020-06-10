@@ -3,7 +3,7 @@ const users = require("./userDb");
 
 const router = express.Router();
 
-router.post("/", validateUserId(), (req, res, next) => {
+router.post("/", validateUser(), (req, res, next) => {
   // do your magic!
   users
     .insert(req.body)
@@ -13,9 +13,20 @@ router.post("/", validateUserId(), (req, res, next) => {
     .catch(next);
 });
 
-router.post("/:id/posts", (req, res) => {
-  // do your magic!
-});
+router.post(
+  "/:id/posts",
+  validateUserId(),
+  validatePost(),
+  (req, res, next) => {
+    // do your magic!
+    users
+      .insert(req.body)
+      .then((post) => {
+        res.status(200).json(post);
+      })
+      .catch(next);
+  }
+);
 
 router.get("/", (req, res) => {
   // do your magic!
