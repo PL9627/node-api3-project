@@ -3,12 +3,12 @@ const users = require("./userDb");
 
 const router = express.Router();
 
-router.post("/", (req, res, next) => {
+router.post("/", validateUserId(), (req, res, next) => {
   // do your magic!
   users
     .insert(req.body)
     .then((user) => {
-      res, status(201).json(user);
+      res.status(201).json(user);
     })
     .catch(next);
 });
