@@ -41,9 +41,20 @@ router.put("/:id", (req, res) => {
 
 function validateUserId(req, res, next) {
   // do your magic!
-  users.getById()
-  .then()
-  .catch()
+  users
+    .getById()
+    .then((user) => {
+      if (user) {
+        req.user = user;
+
+        next();
+      } else {
+        res.status(404).json({
+          message: "invalid user id",
+        });
+      }
+    })
+    .catch(next);
 }
 
 function validateUser(req, res, next) {
