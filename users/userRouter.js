@@ -6,7 +6,7 @@ const router = express.Router();
 router.post("/", (req, res, next) => {
   // do your magic!
   users
-    .add(req.body)
+    .insert(req.body)
     .then((user) => {
       res, status(201).json(user);
     })
