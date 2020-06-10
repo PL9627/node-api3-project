@@ -38,8 +38,9 @@ router.get("/", (req, res, next) => {
     .catch((err) => next(err));
 });
 
-router.get("/:id", (req, res) => {
+router.get("/:id", validateUserId(), (req, res, next) => {
   // do your magic!
+  res.status(200).json(req.user);
 });
 
 router.get("/:id/posts", (req, res) => {
